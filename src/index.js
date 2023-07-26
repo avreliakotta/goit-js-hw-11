@@ -21,10 +21,10 @@ async function onSubmit(event) {
   event.preventDefault();
 
   searchQuery = event.target.elements.searchQuery.value;
-  console.log(searchQuery);
+  // console.log(searchQuery);
   try {
     const data = await getPhotos();
-    console.log(data.hits);
+
     if (data.hits.length === 0) {
       loadMore.hidden = true;
       Notiflix.Notify.failure(
@@ -63,7 +63,6 @@ async function getPhotos(page = 1) {
       `${BASE_URL}?key=${API_KEY}&q=${searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=40`
     );
 
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -114,7 +113,7 @@ async function onLoad() {
   try {
     currentPage += 1;
     const data = await getPhotos(currentPage);
-    console.log('data-hits', data.hits);
+    // console.log('data-hits', data.hits);
     if (data.hits.length === 0) {
       loadMore.hidden = true;
       Notiflix.Notify.failure(
