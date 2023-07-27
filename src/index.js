@@ -65,10 +65,12 @@ function createMarkup(arr) {
     )
     .join('');
 }
+totalHits = 0;
 async function fetchPhotos(page = 1) {
   try {
     const data = await getPhotos(page);
-
+    totalHits += data.totalHits;
+    Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
     if (data.hits.length === 0) {
       loadMore.hidden = true;
       Notiflix.Notify.failure(
@@ -116,11 +118,13 @@ function clearGalaryContainer() {
 }
 
 let currentPage = 1;
+
 async function onLoad() {
   try {
     currentPage += 1;
 
     await fetchPhotos(currentPage);
+
     const { height: cardHeight } = document
       .querySelector('.gallery')
       .firstElementChild.getBoundingClientRect();
