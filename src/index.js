@@ -65,12 +65,12 @@ function createMarkup(arr) {
     )
     .join('');
 }
-totalHits = 0;
+
 async function fetchPhotos(page = 1) {
   try {
     const data = await getPhotos(page);
-    totalHits += data.totalHits;
-    // Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+    const totalHits = data.totalHits;
+
     if (data.hits.length === 0) {
       loadMore.hidden = true;
       Notiflix.Notify.failure(
@@ -99,6 +99,8 @@ async function fetchPhotos(page = 1) {
     console.log(error);
   }
 }
+
+let currentPage = 1;
 async function onSubmit(event) {
   event.preventDefault();
 
@@ -107,7 +109,7 @@ async function onSubmit(event) {
 
   clearForm();
   clearGalaryContainer();
-  // onLoad();
+
   await fetchPhotos();
   currentPage = 1;
 }
@@ -118,8 +120,6 @@ function clearForm() {
 function clearGalaryContainer() {
   gallery.innerHTML = '';
 }
-
-let currentPage = 1;
 
 async function onLoad() {
   try {
