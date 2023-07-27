@@ -85,10 +85,11 @@ async function fetchPhotos(page = 1) {
       }
       if (currentPage >= data.totalHits / 40) {
         loadMore.hidden = true;
-
-        Notiflix.Notify.failure(
-          "We're sorry, but you've reached the end of search results."
-        );
+        setTimeout(() => {
+          Notiflix.Notify.failure(
+            "We're sorry, but you've reached the end of search results."
+          );
+        }, 4000);
       }
 
       initializeLightbox();
