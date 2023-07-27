@@ -70,7 +70,7 @@ async function fetchPhotos(page = 1) {
   try {
     const data = await getPhotos(page);
     totalHits += data.totalHits;
-    Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+    // Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
     if (data.hits.length === 0) {
       loadMore.hidden = true;
       Notiflix.Notify.failure(
@@ -81,6 +81,7 @@ async function fetchPhotos(page = 1) {
 
       if (data.page !== data.totalHits) {
         loadMore.hidden = false;
+        Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
       }
       if (currentPage >= data.totalHits / 40) {
         loadMore.hidden = true;
